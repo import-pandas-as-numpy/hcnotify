@@ -4,7 +4,7 @@ The current configuration is managed through `config.json`. You will be prompted
 
 
 ## Installation: 
-Build from source using... 
+Build from source using 
 `pip install git+https://github.com/import-pandas-as-numpy/hcnotify.git`
 
 ## To Use: 
