@@ -4,7 +4,8 @@ The current configuration is managed through `config.json`. You will be prompted
 This first run will generate the `config.json` for you.
 
 It is my recommendation that this be used for competitions, and potfiles be backed up and cleared before the competition starts to ensure that only valid competition entries are posted through the webhook. 
-> :warning: If the potfile is not cleared, this will produce a large amount of output through the webhook until the potfile has been serialized as JSON. After this point, only new entries in the potfile will be posted to the webhook.
+> [!WARNING]
+> If the potfile is not cleared, this will produce a large amount of output through the webhook until the potfile has been serialized as JSON. After this point, only new entries in the potfile will be posted to the webhook.
 
 
 ## Installation: 
