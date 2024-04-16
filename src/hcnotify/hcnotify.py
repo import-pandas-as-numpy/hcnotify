@@ -26,6 +26,10 @@ def _set_potfile(config: dict, potfile: Potfile) -> dict:
     config["potfile"] = potfile.to_dict()
     return config
 
+def _set_username(config: dict, username: str) -> dict:
+    config["username"] = username
+    return config
+
 
 def write_config(config: dict, config_path: Path) -> None:
     with config_path.open("w") as f:
@@ -35,10 +39,12 @@ def write_config(config: dict, config_path: Path) -> None:
 
 def prompt_for_config() -> dict:
     config = {}
+    username = input("Enter your username: ")
     webhook_url = input("Enter the webhook URL: ")
     potfile_path = input("Enter the path to the potfile: ")
     _set_webhook(config, Webhook(webhook_url))
     _set_potfile(config, Potfile(Path(potfile_path)))
+    _set_username(config, username)
     write_config(config, Path("config.json"))
     return config
 
@@ -92,6 +98,7 @@ def run():
     config = get_config(Path("config.json"))
     potfile = Potfile(Path(config["potfile"]["potfile_path"]))
     webhook = Webhook(config["webhook"]["url"])
+    username = config["username"]
     passwords = potfile.read().split("\n")
     found_passwords = load_passwords_from_json(Path("passwords.json"))
     for password in passwords:
@@ -100,7 +107,7 @@ def run():
             password = Password.from_string(password)
             if password not in found_passwords:
                 logging.info("New password found %s", password)
-                password.crack("Rem") # Replace with your user name.
+                password.crack(username)
                 logging.debug("Sending notification for password %s", password.plain)
                 notify(webhook, password)
                 found_passwords.add(password)
